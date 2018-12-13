@@ -1,6 +1,7 @@
 let pieceOfPuzzle = document.querySelectorAll('.puzzle_piece'),
-    randArrNumber = [];
-    
+    randArrNumber = [],
+    btn = document.querySelector('#btn');
+
 function randomInteger(min, max) {
     let rand = min + Math.random() * (max + 1 - min);
     rand = Math.floor(rand);
@@ -30,5 +31,6 @@ function shufle() {
         arr.style.order = randArrNumber[i];
     });
 }
-shufle();
 
+
+btn.addEventListener('click',shufle);
