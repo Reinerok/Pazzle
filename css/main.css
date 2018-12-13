@@ -1,0 +1,37 @@
+.puzzle_block {
+    width: 800px;
+    height: 400px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.puzzle_piece {
+   width: 200px;
+   height: 200px;
+   background-color: rgba(0, 0, 0, 1); 
+}
+
+#block1 {
+    background: url(../img/pazzle_summer.png) 0 0;
+}
+#block2 {
+    background: url(../img/pazzle_summer.png) 600px 0;
+}
+#block3 {
+    background: url(../img/pazzle_summer.png) 400px 0;
+}
+#block4 {
+    background: url(../img/pazzle_summer.png) 200px 0;
+}
+#block5 {
+    background: url(../img/pazzle_summer.png) 0 200px;
+}
+#block6 {
+    background: url(../img/pazzle_summer.png) 600px 200px;
+}
+#block7 {
+    background: url(../img/pazzle_summer.png) 400px 200px;
+}
+#block8 {
+    background: url(../img/pazzle_summer.png) 200px 200px;
+}
