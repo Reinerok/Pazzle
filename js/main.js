@@ -54,35 +54,40 @@ let right = document.querySelectorAll('.right');
 let up = document.querySelectorAll('.up');
 let down = document.querySelectorAll('.down');
 
-function show () {
-    down[1].addEventListener('click', () => {} );
-};
+function move(e) {
+    console.log(e); 
+    if (e.target.localName === "span") {
 
-addEventListener("click", function(e) {
-    if (e.target.localName === "span"  && pieceOfPuzzle[0].style.order && pieceOfPuzzle[0].style.order < 8 ){
-            pieceOfPuzzle[0].style.order = Number(pieceOfPuzzle[0].style.order) + 1;
-            pieceOfPuzzle.forEach(function(key,i,arr) {
-                /*console.log(key);
-                console.log(pieceOfPuzzle[0]);*/
-                
-                if (key.style.order === pieceOfPuzzle[0].style.order && key !== pieceOfPuzzle[0])
-                key.style.order = pieceOfPuzzle[0].style.order - 1;
-                
-            });
-        };
-    console.log(e);
-    /*console.log(e.target.classList[1]);
-    function name () {pieceOfPuzzle[e.target.classList[1] - 1].style.order += +1 }
-    left[e.target.classList[1] - 1].addEventListener('click', name );*/
-  });
+        let item = e.target.classList[1] - 1,
+            compareString = '',
+            stringToCompare = '12345678';
+
+        if (pieceOfPuzzle[item].style.order && pieceOfPuzzle[item].style.order < 8 ){
+                pieceOfPuzzle[item].style.order = Number(pieceOfPuzzle[item].style.order) + 1;
+                pieceOfPuzzle.forEach((key) => {
+                    console.log(key);
+                    if (key.style.order === pieceOfPuzzle[item].style.order && key !== pieceOfPuzzle[item]){
+                        key.style.order = pieceOfPuzzle[item].style.order - 1;
+                        
+                        
+                    }
+                    compareString += key.style.order;
+                    if (stringToCompare === compareString)
+                        console.log('Победа!!!');  
+                });    
+            } 
+        }
+    }
+
+addEventListener("click", (e) => move(e));
 /*
 
-right.addEventListener('click', () => pieceOfPuzzle[0].style.order = Number(pieceOfPuzzle[0].style.order) + 1 );
-up.addEventListener('click', () => pieceOfPuzzle[0].style.order = Number(pieceOfPuzzle[0].style.order) - 5 );
-down.addEventListener('click', () => pieceOfPuzzle[0].style.order = Number(pieceOfPuzzle[0].style.order) + 5 );
+right.addEventListener('click', () => pieceOfPuzzle[item].style.order = Number(pieceOfPuzzle[item].style.order) + 1 );
+up.addEventListener('click', () => pieceOfPuzzle[item].style.order = Number(pieceOfPuzzle[item].style.order) - 5 );
+down.addEventListener('click', () => pieceOfPuzzle[item].style.order = Number(pieceOfPuzzle[item].style.order) + 5 );
 
 console.log(pieceOfPuzzle);
 console.log(down[0].parentElement);
 
-pieceOfPuzzle[0].addEventListener('click',() => {console.log(pieceOfPuzzle[0])}); */
+pieceOfPuzzle[item].addEventListener('click',() => {console.log(pieceOfPuzzle[item])}); */
 
