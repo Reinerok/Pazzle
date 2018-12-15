@@ -9,7 +9,8 @@
 .puzzle_piece {
    width: 200px;
    height: 200px;
-   background-color: rgba(0, 0, 0, 1); 
+   background-color: rgba(0, 0, 0, 1);
+   position: relative; 
 }
 #btn {
     display: block;
@@ -21,6 +22,32 @@
     border-radius: 15px;
     background: rgb(64, 138, 199);
     transition: 0.2s;
+}
+
+span {
+    cursor: pointer;
+}
+
+.up {
+    position: absolute;
+    top: 10%;
+    left: calc(50% - 10px);
+}
+
+.right {
+    position: absolute;
+    bottom: calc(50% - 9px);
+    right: 5%;
+}
+.down {
+    position: absolute;
+    bottom: 10%;
+    left: calc(50% - 20px);
+}
+.left {
+    position: absolute;
+    bottom: calc(50% - 9px);
+    left: 5%;
 }
 
 #block1 {
