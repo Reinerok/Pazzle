@@ -97,7 +97,7 @@ function move(e) {
                     //проверяем порядок блоков если мы собрали их по порядку то мы выиграли
                     compareString += key.style.order;
                     if (stringToCompare === compareString)
-                        setTimeout(() => {alert('Победа!!!')},1500);  
+                        setTimeout(() => {alert('You Win!!!')},1500);  
                 });    
             } 
         }

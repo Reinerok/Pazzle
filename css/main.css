@@ -18,10 +18,11 @@
     font-weight: 700;
     color: white;
     text-decoration: none;
-    padding: .8em 1em calc(.8em + 3px);
-    border-radius: 15px;
+    padding: 0.8em 2em calc(.8em + 3px);
+    border-radius: 25px;
     background: rgb(64, 138, 199);
     transition: 0.2s;
+    font-size: 19px;
 }
 
 span {
