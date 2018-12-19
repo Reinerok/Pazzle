@@ -2,12 +2,23 @@ let btn = document.querySelector('#btn'),
     mainBlock = document.querySelector('.puzzle_block'),
     stringToCompare = '12345678';
 
-//Функция для генерация случайного числа с задаными границами
+// build block 
+createBlocks(8);
+
+// listener on click with event
+addEventListener("click", (e) => move(e));
+
+btn.addEventListener('click',shufle);
+
+// Putting all the puzzle pieces NodeList objects
+let pieceOfPuzzle = document.querySelectorAll('.puzzle_piece');
+
+// Function for generating a random number with given boundaries
 function randomInteger(min, max) {
     return Math.floor(min + Math.random() * (max + 1 - min));   
 }
 
-//функция для сборки блока с пазлом
+// Function to build a block with a puzzle.
 function createBlocks(numbers) {
     for (let i = 1; i <= numbers; i++) {
         mainBlock.innerHTML += `<div class="puzzle_piece ${i}" id="block${i}">
@@ -19,24 +30,18 @@ function createBlocks(numbers) {
     }
 }
 
-//Собираем блок с пазлом
-createBlocks(8);
-
-//Собираем все кусочки пазла в псевдомасив
-let pieceOfPuzzle = document.querySelectorAll('.puzzle_piece');
-
-//Фнункция для случайного расставления чисел в массиве, без повторения
+// Function for randomly arranging numbers in an array, without repeating
 function randArr() {
-    //создаем массив с случайными числами и пресваием первый элемент
+    // create an array with random numbers and the first element
     let randArrNumber = [];
     randArrNumber.push(randomInteger(1,8));
-    //функция для проверки уникальности элементов и наполнения уникальными элементами
+    // Function to check the uniqueness of elements and filling unique elements
     function fillArr() {
         let randNumber = randomInteger(1,8);
-        //проверяем если в массиве такой же элемент если нету то добавляем иначе вызываем функцию повторно
+        // check if there is the same element in the array; if not, add it, otherwise, call the function again.
         if (randArrNumber.indexOf(randNumber) === -1) {
             randArrNumber.push(randNumber);
-                //если собрали 8 уникальных элементов возвращаем массив
+                // if we collected 8 unique elements, we return an array
                 if (randArrNumber.length === 8) {
                     return randArrNumber;
                 }
@@ -47,7 +52,7 @@ function randArr() {
     return randArrNumber;
 }
 
-//используем массив с уникальными элементами для смешивания кусочков пазла
+// use an array with unique elements to mix puzzle pieces
 function shufle() {
     let randArrNumber = randArr();
     pieceOfPuzzle.forEach((arr, i) => {
@@ -55,20 +60,18 @@ function shufle() {
     });
 }
 
- btn.addEventListener('click',shufle);
-
- //функция дя перемещения кусочков пазла
+// function to move puzzle pieces
 function move(e) {
-    //создаем условие на клик по тэгу спан
+    // create a condition on click on the tag span
     if (e.target.localName === "span") {
         let item = e.target.classList[1] - 1,
             compareString = '',
             position = e.target.classList[0],   
             number = pieceOfPuzzle[item].style.order;
-        //если у элемента есть order и он меньше 8 .
+        // if the element has an order and it is less than 8
         if (pieceOfPuzzle[item].style.order && pieceOfPuzzle[item].style.order <= 8){
-                
-                //ищем спан по позиции 
+           
+                // looking for span by position
                 switch (position) {
                     case position = 'left':
                         pieceOfPuzzle[item].style.order = Number(pieceOfPuzzle[item].style.order) - 1;
@@ -89,19 +92,19 @@ function move(e) {
                         }
                     break;
                 }
-                // меняем местами блоки
+                // swapping blocks
                 pieceOfPuzzle.forEach((key) => {
                     if (key.style.order === pieceOfPuzzle[item].style.order && key !== pieceOfPuzzle[item]){
                         key.style.order = number;  
                     }
-                    //проверяем порядок блоков если мы собрали их по порядку то мы выиграли
+                    // check the order of the blocks if we collected them in order we won
                     compareString += key.style.order;
                     if (stringToCompare === compareString)
-                        setTimeout(() => {alert('You Win!!!')},1500);  
+                        setTimeout(() => {
+                            alert('You Win!!!');
+                        },1500);  
                 });    
             } 
         }
     }
 
-//обработчик по клику с параметром which
-addEventListener("click", (e) => move(e));
