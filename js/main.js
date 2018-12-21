@@ -1,9 +1,10 @@
 let btn = document.querySelector('#btn'),
     mainBlock = document.querySelector('.puzzle_block'),
     stringToCompare = '12345678';
+    
 
 // build block 
-createBlocks(8);
+createBlocks(16);
 
 // listener on click with event
 addEventListener("click", (e) => move(e));
@@ -34,15 +35,15 @@ function createBlocks(numbers) {
 function randArr() {
     // create an array with random numbers and the first element
     let randArrNumber = [];
-    randArrNumber.push(randomInteger(1,8));
+    randArrNumber.push(randomInteger(1,16));
     // Function to check the uniqueness of elements and filling unique elements
     function fillArr() {
-        let randNumber = randomInteger(1,8);
+        let randNumber = randomInteger(1,16);
         // check if there is the same element in the array; if not, add it, otherwise, call the function again.
         if (randArrNumber.indexOf(randNumber) === -1) {
             randArrNumber.push(randNumber);
                 // if we collected 8 unique elements, we return an array
-                if (randArrNumber.length === 8) {
+                if (randArrNumber.length === 16) {
                     return randArrNumber;
                 }
         }
@@ -67,35 +68,33 @@ function move(e) {
         let item = e.target.classList[1] - 1,
             compareString = '',
             position = e.target.classList[0],   
-            number = pieceOfPuzzle[item].style.order;
-        // if the element has an order and it is less than 8
-        if (pieceOfPuzzle[item].style.order && pieceOfPuzzle[item].style.order <= 8){
-           
+            orderPositon = Number(pieceOfPuzzle[item].style.order);
+        // if the element has an order and it is less than 16
+        if (pieceOfPuzzle[item].style.order && pieceOfPuzzle[item].style.order <= 16 ){
+
                 // looking for span by position
                 switch (position) {
                     case position = 'left':
-                        pieceOfPuzzle[item].style.order = Number(pieceOfPuzzle[item].style.order) - 1;
+                        pieceOfPuzzle[item].style.order = orderPositon - 1;
                     break;
                     case position = 'right':
-                        pieceOfPuzzle[item].style.order = Number(pieceOfPuzzle[item].style.order) + 1;
+                        pieceOfPuzzle[item].style.order = orderPositon + 1;
                     break;
                     case position = 'up':
-                        pieceOfPuzzle[item].style.order = Number(pieceOfPuzzle[item].style.order) -4;
-                        if (pieceOfPuzzle[item].style.order < 1) {
-                            pieceOfPuzzle[item].style.order = 1;
-                        }
+                        pieceOfPuzzle[item].style.order = orderPositon - 8;
                     break;
                     case position = 'down':
-                        pieceOfPuzzle[item].style.order = Number(pieceOfPuzzle[item].style.order) + 4;
-                        if (pieceOfPuzzle[item].style.order > 8) {
-                            pieceOfPuzzle[item].style.order = 8;
-                        }
+                        pieceOfPuzzle[item].style.order = orderPositon + 8;
                     break;
                 }
+
+                pieceOfPuzzle[item].style.order < 1 ? pieceOfPuzzle[item].style.order = 1 : pieceOfPuzzle[item].style.order = pieceOfPuzzle[item].style.order;
+                pieceOfPuzzle[item].style.order > 16 ? pieceOfPuzzle[item].style.order = 16 : pieceOfPuzzle[item].style.order = pieceOfPuzzle[item].style.order;
+               
                 // swapping blocks
                 pieceOfPuzzle.forEach((key) => {
                     if (key.style.order === pieceOfPuzzle[item].style.order && key !== pieceOfPuzzle[item]){
-                        key.style.order = number;  
+                        key.style.order = orderPositon;  
                     }
                     // check the order of the blocks if we collected them in order we won
                     compareString += key.style.order;

@@ -5,9 +5,10 @@
     flex-direction: row;
     flex-wrap: wrap;
     margin: 0 auto;
+    align-content: end;
 }
 .puzzle_piece {
-   width: 200px;
+   width: 100px;
    height: 200px;
    background-color: rgba(0, 0, 0, 1);
    position: relative; 
@@ -25,8 +26,18 @@
     font-size: 19px;
 }
 
+.tooltip {
+    width: 800px;
+    height: 400px;
+    position: relative;
+    margin: 20px auto;
+    background: url('../img/mountain.png');
+
+}
+
 span {
     cursor: pointer;
+    color: #ffffff;
 }
 
 .up {
@@ -52,26 +63,50 @@ span {
 }
 
 #block1 {
-    background: url(../img/pazzle_summer.png) 0 0;
+    background: url(../img/mountain.png) 0 0;
 }
 #block2 {
-    background: url(../img/pazzle_summer.png) 600px 0;
+    background: url(../img/mountain.png) 700px 0;
 }
 #block3 {
-    background: url(../img/pazzle_summer.png) 400px 0;
+    background: url(../img/mountain.png) 600px 0;
 }
 #block4 {
-    background: url(../img/pazzle_summer.png) 200px 0;
+    background: url(../img/mountain.png) 500px 0;
 }
 #block5 {
-    background: url(../img/pazzle_summer.png) 0 200px;
+    background: url(../img/mountain.png) 400px 0;
 }
 #block6 {
-    background: url(../img/pazzle_summer.png) 600px 200px;
+    background: url(../img/mountain.png) 300px 0;
 }
 #block7 {
-    background: url(../img/pazzle_summer.png) 400px 200px;
+    background: url(../img/mountain.png) 200px 0;
 }
 #block8 {
-    background: url(../img/pazzle_summer.png) 200px 200px;
+    background: url(../img/mountain.png) 100px 0;
+}
+#block9 {
+    background: url(../img/mountain.png) 0 200px;
+}
+#block10 {
+    background: url(../img/mountain.png) 700px 200px;
+}
+#block11 {
+    background: url(../img/mountain.png) 600px 200px;
+}
+#block12 {
+    background: url(../img/mountain.png) 500px 200px;
+}
+#block13 {
+    background: url(../img/mountain.png) 400px 200px;
+}
+#block14 {
+    background: url(../img/mountain.png) 300px 200px;
+}
+#block15 {
+    background: url(../img/mountain.png) 200px 200px;
+}
+#block16 {
+    background: url(../img/mountain.png) 100px 200px;
 }
