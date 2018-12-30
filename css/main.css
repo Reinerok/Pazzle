@@ -1,3 +1,9 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 .puzzle_block {
     width: 800px;
     height: 400px;
@@ -13,7 +19,7 @@
    background-color: rgba(0, 0, 0, 1);
    position: relative; 
 }
-#btn {
+.btn {
     display: block;
     margin: 25px auto;
     font-weight: 700;
@@ -26,7 +32,61 @@
     font-size: 19px;
 }
 
-.tooltip {
+.btn-hover {
+    display: block;
+    width: 100px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 25px auto;
+    height: 45px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:focus {
+    outline: none;
+}
+
+.btn-hover.color-1 {
+    background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
+    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+}
+
+.btn-hover.color-2 {
+    background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+    box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
+
+.timer {
+    position: relative;
+    width: 60px;
+    height: auto;
+    text-align: center;
+    background: #000;
+    color: #fff;
+    font-size: 25px;
+    left: 800px;
+    bottom: 70px;
+    cursor: default;
+}
+.tooltipImage {
     width: 800px;
     height: 400px;
     position: relative;
@@ -34,7 +94,13 @@
     background: url('../img/mountain.png');
 
 }
+.show {
+    display: block;
+}
 
+.hide {
+    display: none;
+}
 span {
     cursor: pointer;
     color: #ffffff;

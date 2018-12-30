@@ -1,7 +1,32 @@
 let btn = document.querySelector('#btn'),
     mainBlock = document.querySelector('.puzzle_block'),
-    stringToCompare = '12345678';
+    stringToCompare = '12345678'
+    tooltipImage = document.querySelectorAll('.tooltipImage'),
+    tooltip = document.querySelectorAll('.tooltip'),
+    timerValue = document.querySelector('.timer');
     
+
+function timer() {
+    if (timerValue.textContent >= 1 && timerValue.classList.contains('start')) {
+        setTimeout(() => {
+            timerValue.textContent = timerValue.textContent - 1;
+            timerValue.textContent == 0 ? shufle(16) : timer();
+        },1000);    
+    } else {
+        timerValue.textContent = 60;
+    }       
+}
+timerValue.addEventListener('click',() => {
+    timerValue.classList.toggle('start');
+    timer();
+});
+
+ function show() {
+  tooltipImage[0].classList.toggle('hide');
+  tooltipImage[0].classList.toggle('show');
+}; 
+
+tooltip[0].addEventListener('click',show)
 
 // build block 
 createBlocks(16);
@@ -9,7 +34,7 @@ createBlocks(16);
 // listener on click with event
 addEventListener("click", (e) => move(e));
 
-btn.addEventListener('click',shufle);
+btn.addEventListener('click',() => {shufle(16)});
 
 // Putting all the puzzle pieces NodeList objects
 let pieceOfPuzzle = document.querySelectorAll('.puzzle_piece');
@@ -32,18 +57,18 @@ function createBlocks(numbers) {
 }
 
 // Function for randomly arranging numbers in an array, without repeating
-function randArr() {
+function randArr(number) {
     // create an array with random numbers and the first element
     let randArrNumber = [];
-    randArrNumber.push(randomInteger(1,16));
+    randArrNumber.push(randomInteger(1,number));
     // Function to check the uniqueness of elements and filling unique elements
     function fillArr() {
-        let randNumber = randomInteger(1,16);
+        let randNumber = randomInteger(1,number);
         // check if there is the same element in the array; if not, add it, otherwise, call the function again.
         if (randArrNumber.indexOf(randNumber) === -1) {
             randArrNumber.push(randNumber);
                 // if we collected 8 unique elements, we return an array
-                if (randArrNumber.length === 16) {
+                if (randArrNumber.length === number) {
                     return randArrNumber;
                 }
         }
@@ -54,8 +79,8 @@ function randArr() {
 }
 
 // use an array with unique elements to mix puzzle pieces
-function shufle() {
-    let randArrNumber = randArr();
+function shufle(number) {
+    let randArrNumber = randArr(number);
     pieceOfPuzzle.forEach((arr, i) => {
         arr.style.order = randArrNumber[i];
     });
