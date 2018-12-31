@@ -1,16 +1,20 @@
 let btn = document.querySelector('#btn'),
     mainBlock = document.querySelector('.puzzle_block'),
-    stringToCompare = '12345678'
-    tooltipImage = document.querySelectorAll('.tooltipImage'),
-    tooltip = document.querySelectorAll('.tooltip'),
-    timerValue = document.querySelector('.timer');
+    stringToCompare = '12345678',
+    compareString = '',
+    tooltipImage = document.querySelector('.tooltipImage'),
+    tooltip = document.querySelector('.tooltip'),
+    timerValue = document.querySelector('.timer'),
+    complexity = 16,
+    x,
+    y;
     
 
 function timer() {
     if (timerValue.textContent >= 1 && timerValue.classList.contains('start')) {
         setTimeout(() => {
             timerValue.textContent = timerValue.textContent - 1;
-            timerValue.textContent == 0 ? shufle(16) : timer();
+            timerValue.textContent == 0 ? shufle(complexity) : timer();
         },1000);    
     } else {
         timerValue.textContent = 60;
@@ -22,19 +26,19 @@ timerValue.addEventListener('click',() => {
 });
 
  function show() {
-  tooltipImage[0].classList.toggle('hide');
-  tooltipImage[0].classList.toggle('show');
+  tooltipImage.classList.toggle('hide');
+  tooltipImage.classList.toggle('show');
 }; 
 
-tooltip[0].addEventListener('click',show)
+tooltip.addEventListener('click',show)
 
 // build block 
-createBlocks(16);
+createBlocks(complexity);
 
 // listener on click with event
 addEventListener("click", (e) => move(e));
 
-btn.addEventListener('click',() => {shufle(16)});
+btn.addEventListener('click',() => {shufle(complexity)});
 
 // Putting all the puzzle pieces NodeList objects
 let pieceOfPuzzle = document.querySelectorAll('.puzzle_piece');
@@ -46,8 +50,17 @@ function randomInteger(min, max) {
 
 // Function to build a block with a puzzle.
 function createBlocks(numbers) {
-    for (let i = 1; i <= numbers; i++) {
-        mainBlock.innerHTML += `<div class="puzzle_piece ${i}" id="block${i}">
+    for (var i = 1; i <= numbers; i++) {
+        if (i === 1) {
+            x = 0;
+            y = 0;
+        } else if (i > 1 && i !== 9 ) {
+            x = 900 - i*100;
+        } else if (i === 9) {
+            x = 0;
+            y = 200;
+        }
+        mainBlock.innerHTML += `<div class="puzzle_piece ${i}" id="block${i}" style="order: 0; background-position: ${x}px ${y}px;" ">
                                     <span class="up ${i}" id="up${i}">Up</span>
                                     <span class="right ${i}" id="right${i}">Right</span>
                                     <span class="down ${i}" id="down${i}">Down</span>
@@ -91,11 +104,10 @@ function move(e) {
     // create a condition on click on the tag span
     if (e.target.localName === "span") {
         let item = e.target.classList[1] - 1,
-            compareString = '',
             position = e.target.classList[0],   
             orderPositon = Number(pieceOfPuzzle[item].style.order);
-        // if the element has an order and it is less than 16
-        if (pieceOfPuzzle[item].style.order && pieceOfPuzzle[item].style.order <= 16 ){
+        // if the element has an order and it is less than complexity
+        if (pieceOfPuzzle[item].style.order != 0 && pieceOfPuzzle[item].style.order <= complexity ){
 
                 // looking for span by position
                 switch (position) {
@@ -114,7 +126,7 @@ function move(e) {
                 }
 
                 pieceOfPuzzle[item].style.order < 1 ? pieceOfPuzzle[item].style.order = 1 : pieceOfPuzzle[item].style.order = pieceOfPuzzle[item].style.order;
-                pieceOfPuzzle[item].style.order > 16 ? pieceOfPuzzle[item].style.order = 16 : pieceOfPuzzle[item].style.order = pieceOfPuzzle[item].style.order;
+                pieceOfPuzzle[item].style.order > complexity ? pieceOfPuzzle[item].style.order = complexity : pieceOfPuzzle[item].style.order = pieceOfPuzzle[item].style.order;
                
                 // swapping blocks
                 pieceOfPuzzle.forEach((key) => {
