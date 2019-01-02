@@ -2,6 +2,15 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    padding: 0px;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none !important;
 }
 
 .puzzle_block {
@@ -15,10 +24,10 @@
 }
 .puzzle_piece {
    width: 100px;
-   height: 200px;
+   height: 100px;
+   background-image: url(../img/mountain.png);
    background-color: rgba(0, 0, 0, 1);
-   position: relative;
-   background-image: url(../img/mountain.png); 
+   position: relative;  
 }
 .btn {
     display: block;
@@ -75,6 +84,10 @@
     box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
 }
 
+.btn-hover.color-3 {
+    background-image: linear-gradient(to left, #e1252e, #e44040, #dd3030, #b62b2b);
+    box-shadow: 0 4px 15px 0 rgba(196, 49, 61, 0.75);
+}
 .timer {
     position: relative;
     width: 60px;
@@ -95,19 +108,22 @@
     background: url('../img/mountain.png');
 
 }
-.show {
-    display: block;
-}
 
-.hide {
-    display: none;
-}
 .puzzle_piece span {
     position: absolute;
     cursor: pointer;
     color: #ffffff;
 }
 
+.difficulty {
+    margin: 0 35%;
+    display: flex;
+}
+
+.difficulty li {
+    margin-left: 20px;
+    list-style: none;
+}
 .up {
     top: 10%;
     left: calc(50% - 10px);
