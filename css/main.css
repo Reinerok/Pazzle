@@ -13,6 +13,14 @@
     display: none !important;
 }
 
+.title {
+    display: block;
+    position: relative;
+    left: calc(50% - 103px);
+    font-size: 21px;
+    margin-bottom: 20px;
+}
+
 .puzzle_block {
     width: 800px;
     height: 400px;
@@ -23,8 +31,6 @@
     align-content: end;
 }
 .puzzle_piece {
-   width: 100px;
-   height: 100px;
    background-image: url(../img/mountain.png);
    background-color: rgba(0, 0, 0, 1);
    position: relative;  
@@ -96,8 +102,8 @@
     background: #000;
     color: #fff;
     font-size: 25px;
-    left: 800px;
-    bottom: 70px;
+    left: 850px;
+    bottom: 60px;
     cursor: default;
 }
 .tooltipImage {
@@ -116,14 +122,49 @@
 }
 
 .difficulty {
-    margin: 0 35%;
+    margin: 0 32%;
     display: flex;
+    cursor: pointer;
+}
+.difficulty span {
+    font-size: 19px;
+    margin-top: 1%;
 }
 
 .difficulty li {
+    cursor: pointer;
     margin-left: 20px;
     list-style: none;
 }
+
+.difficulty li {
+    cursor: pointer;
+    font-family: "Trebuchet MS", "Lucida Sans";
+    padding: 7px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-left: 10px solid #f05d22; 
+    box-shadow: 2px -2px 5px 0 rgba(0,0,0,.1),
+        -2px -2px 5px 0 rgba(0,0,0,.1),
+    2px 2px 5px 0 rgba(0,0,0,.1),
+    -2px 2px 5px 0 rgba(0,0,0,.1);
+    font-size: 20px;
+    letter-spacing: 2px;
+    transition: 0.3s all linear;
+}
+
+.difficulty li:nth-child(2) {
+    border-color: #8bc63e;
+}
+
+.difficulty li:nth-child(3) {
+    border-color: #1ccfc9;
+} 
+
+.difficulty li:nth-child(4) {
+    border-color: #e21123;
+}
+
 .up {
     top: 10%;
     left: calc(50% - 10px);

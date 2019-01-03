@@ -1,7 +1,8 @@
 let start = document.querySelector('.start'),
     restart = document.querySelector('.restart'),
     mainBlock = document.querySelector('.puzzle_block'),
-    stringToCompare = '12345678',
+    //TO DO сделать проверку для 16 и 32
+    stringToCompare = '',
     compareString = '',
     tooltipImage = document.querySelector('.tooltipImage'),
     tooltip = document.querySelector('.tooltip'),
@@ -19,7 +20,7 @@ let start = document.querySelector('.start'),
     step,
     randArrNumber;
 
-difficulty.addEventListener('click',(e) => {
+    difficulty.addEventListener('click',(e) => {
     switch (true) {
         case e.target.className === 'easy':
         complexity = 8;
@@ -83,6 +84,7 @@ start.addEventListener('click',() => {
 restart.addEventListener('click',() => {
     puzzle_piece !== 'undefined' ? removePiece() : '';
     difficulty.classList.toggle('hide');
+    tooltipImage.classList.contains('hide') ? '' : tooltipImage.classList.toggle('hide');
     restart.classList.toggle('hide');
     tooltip.classList.toggle('hide');
     timerValue.classList.toggle('hide');
@@ -97,7 +99,9 @@ function randomInteger(min, max) {
 
 // Function to build a block with a puzzle.
 function createBlocks(numbers) {
+
     for (var i = 1; i <= numbers; i++) {
+        stringToCompare +=i;
         if (complexity === 8) {
             widthBlock = 200;
             heightBlock = 200;
@@ -107,16 +111,36 @@ function createBlocks(numbers) {
         } else if (complexity === 32) {
             widthBlock = 100;
             heightBlock = 100;             
-        }
+        } 
+        
         if (i === 1) {
             x = 0;
             y = 0;
-        } else if (i > 1 && i !== 9 ) {
+        } else if (i > 1 && i !== 9 && complexity >= 16) {
             x = 900 - i*100;
-        } else if (i === 9) {
+        } else if (i === 9 && complexity === 16 || i === 5 && complexity === 8) {
             x = 0;
             y = 200;
+        } else if (i > 1 && i !== 5 && complexity === 8) {
+            x = 1000 - i*200;
+        } else if (i > 1 && i !== 5 && complexity === 8) {
+            x = 1000 - i*200;
+        } else if (i === 5 && complexity === 8) {
+            x = 0;
+            y = 200;
+        } 
+        
+        if (i === 9 && complexity === 32) {
+            x = 0;
+            y = 300;
+        } else if (i === 17 && complexity === 32) {
+            x = 0;
+            y = 200;
+        } else if (i === 25 && complexity === 32) {
+            x = 0;
+            y = 100;
         }
+        
         mainBlock.innerHTML += `<div class="puzzle_piece ${i}" id="block${i}" style="order: 0; background-position: ${x}px ${y}px; width: ${widthBlock}px; height: ${heightBlock}px;" ">
                                     <span class="direction up ${i}" id="up${i}">Up</span>
                                     <span class="direction right ${i}" id="right${i}">Right</span>
@@ -194,12 +218,13 @@ function move(e) {
                     }
                     // check the order of the blocks if we collected them in order we won
                     compareString += key.style.order;
+                    console.log(compareString);
                     if (stringToCompare === compareString)
                         setTimeout(() => {
                             alert('You Win!!!');
-                        },1500);  
+                        },1500);
+                    compareString.length === stringToCompare.length ? compareString = '' : compareString = compareString;  
                 });    
-            } 
-        }
+        } 
     }
-
+}
