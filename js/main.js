@@ -6,6 +6,7 @@ let start = document.querySelector('.start'),
     compareString = '',
     tooltipImage = document.querySelector('.tooltipImage'),
     tooltip = document.querySelector('.tooltip'),
+    title = document.querySelector('.title'),
     puzzle_piece,
     difficulty = document.querySelector('.difficulty'),
     timerValue = document.querySelector('.timer'),
@@ -78,6 +79,7 @@ start.addEventListener('click',() => {
     restart.classList.toggle('hide');
     tooltip.classList.toggle('hide');
     timerValue.classList.toggle('hide');
+    title.classList.toggle('hide');
     start.classList.toggle('hide');
 });
 
@@ -87,6 +89,7 @@ restart.addEventListener('click',() => {
     tooltipImage.classList.contains('hide') ? '' : tooltipImage.classList.toggle('hide');
     restart.classList.toggle('hide');
     tooltip.classList.toggle('hide');
+    title.classList.toggle('hide');
     timerValue.classList.toggle('hide');
 });
 

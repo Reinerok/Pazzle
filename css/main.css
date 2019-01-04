@@ -137,6 +137,9 @@
     list-style: none;
 }
 
+.difficulty li:hover { 
+    color: #76bc21;
+}
 .difficulty li {
     cursor: pointer;
     font-family: "Trebuchet MS", "Lucida Sans";
