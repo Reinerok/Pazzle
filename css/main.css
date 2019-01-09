@@ -19,6 +19,7 @@
     left: calc(50% - 103px);
     font-size: 21px;
     margin-bottom: 20px;
+    max-width: 245px;
 }
 
 .puzzle_block {
@@ -31,8 +32,6 @@
     align-content: end;
 }
 .puzzle_piece {
-   background-image: url(../img/mountain.png);
-   background-color: rgba(0, 0, 0, 1);
    position: relative;  
 }
 .btn {
@@ -102,7 +101,8 @@
     background: #000;
     color: #fff;
     font-size: 25px;
-    left: 850px;
+    margin: auto;
+    left: 185px;
     bottom: 60px;
     cursor: default;
 }
@@ -111,8 +111,7 @@
     height: 400px;
     position: relative;
     margin: 20px auto;
-    background: url('../img/mountain.png');
-
+    /*background-image: url('../img/mountain.png');*/
 }
 
 .puzzle_piece span {
@@ -122,9 +121,11 @@
 }
 
 .difficulty {
-    margin: 0 32%;
+    left: calc(50% - 236px);
+    position: relative;
     display: flex;
     cursor: pointer;
+    max-width: 245px;
 }
 .difficulty span {
     font-size: 19px;

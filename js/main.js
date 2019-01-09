@@ -1,8 +1,7 @@
 let start = document.querySelector('.start'),
     restart = document.querySelector('.restart'),
     mainBlock = document.querySelector('.puzzle_block'),
-    //TO DO сделать проверку для 16 и 32
-    stringToCompare = '',
+    stringToCompare,
     compareString = '',
     tooltipImage = document.querySelector('.tooltipImage'),
     tooltip = document.querySelector('.tooltip'),
@@ -19,9 +18,17 @@ let start = document.querySelector('.start'),
     imgBlock,
     randNumber,
     step,
-    randArrNumber;
+    randArrNumber,
+    puzzleImg;
 
-    difficulty.addEventListener('click',(e) => {
+// Функция для скрытия блоков
+function hideAll(...rest) {
+    rest.forEach((element) => {
+        element.classList.toggle('hide');
+    }); 
+};
+
+difficulty.addEventListener('click',(e) => {
     switch (true) {
         case e.target.className === 'easy':
         complexity = 8;
@@ -33,8 +40,8 @@ let start = document.querySelector('.start'),
         complexity = 32;
         break;      
     }
-    //remove block 
-    //удаляем блоки если они есть
+    // remove block 
+    // удаляем блоки если они есть
     puzzle_piece !== 'undefined' ? removePiece() : '';
     // build block
     // собираем блоки 
@@ -42,14 +49,15 @@ let start = document.querySelector('.start'),
     start.classList.remove('hide');
 });
 
-//функция удаления блоков
+// функция удаления блоков
 function removePiece() {
     puzzle_piece = document.querySelectorAll('.puzzle_piece');
-    puzzle_piece.forEach((arr) => {
-        arr.remove();
-        });
+    puzzle_piece.forEach((element) => {
+        element.remove();
+    });
 }
 
+// функция для старта таймера
 function timer() {
     if (timerValue.textContent >= 1 && timerValue.classList.contains('starting')) {
         setTimeout(() => {
@@ -60,51 +68,50 @@ function timer() {
         timerValue.textContent = 60;
     }       
 }
+
 timerValue.addEventListener('click',() => {
     timerValue.classList.toggle('starting');
     timer();
 });
 
 tooltip.addEventListener('click',() => {
-    tooltipImage.classList.toggle('hide');
+    hideAll(tooltipImage);
 })
 
 // listener on click with event
 // добавляем обработчик события на клик для движения блоков
 addEventListener("click", (e) => move(e));
 
+// обработчики для старта и рестарта
 start.addEventListener('click',() => {
     shufle(complexity);
-    difficulty.classList.toggle('hide');
-    restart.classList.toggle('hide');
-    tooltip.classList.toggle('hide');
-    timerValue.classList.toggle('hide');
-    title.classList.toggle('hide');
-    start.classList.toggle('hide');
+    hideAll(difficulty, restart, tooltip, timerValue, title, start);
 });
 
 restart.addEventListener('click',() => {
     puzzle_piece !== 'undefined' ? removePiece() : '';
-    difficulty.classList.toggle('hide');
-    tooltipImage.classList.contains('hide') ? '' : tooltipImage.classList.toggle('hide');
-    restart.classList.toggle('hide');
-    tooltip.classList.toggle('hide');
-    title.classList.toggle('hide');
-    timerValue.classList.toggle('hide');
+    tooltipImage.classList.contains('hide') ? '' : hideAll(tooltipImage);
+    hideAll(difficulty, restart, tooltip, timerValue, title);
 });
 
-// Putting all the puzzle pieces NodeList objects
-
 // Function for generating a random number with given boundaries
+// Функция для генерации рандомного числа
 function randomInteger(min, max) {
     return Math.floor(min + Math.random() * (max + 1 - min));   
 }
 
 // Function to build a block with a puzzle.
+// Функци для создания блока с пазлом.
 function createBlocks(numbers) {
 
+    stringToCompare = '';
+    puzzleImg = randomInteger(1, 5);
+    tooltipImage.style.backgroundImage = `url("../img/${puzzleImg}.png")`;
+
     for (var i = 1; i <= numbers; i++) {
+
         stringToCompare +=i;
+
         if (complexity === 8) {
             widthBlock = 200;
             heightBlock = 200;
@@ -144,13 +151,16 @@ function createBlocks(numbers) {
             y = 100;
         }
         
-        mainBlock.innerHTML += `<div class="puzzle_piece ${i}" id="block${i}" style="order: 0; background-position: ${x}px ${y}px; width: ${widthBlock}px; height: ${heightBlock}px;" ">
+        console.log(puzzleImg);
+        
+        mainBlock.innerHTML += `<div class="puzzle_piece ${i}" id="block${i}" style="order: 0; background: url(../img/${puzzleImg}.png) ${x}px ${y}px; width: ${widthBlock}px; height: ${heightBlock}px;" ">
                                     <span class="direction up ${i}" id="up${i}">Up</span>
                                     <span class="direction right ${i}" id="right${i}">Right</span>
                                     <span class="direction down ${i}" id="down${i}">Down</span>
                                     <span class="direction left ${i}" id="left${i}">Left</span>
                                 </div>`;
     }
+
 }
 
 // Function for randomly arranging numbers in an array, without repeating
@@ -177,23 +187,29 @@ function randArr(number) {
 
 // use an array with unique elements to mix puzzle pieces
 function shufle(number) {
+    // Putting all the puzzle pieces NodeList objects
     pieceOfPuzzle = document.querySelectorAll('.puzzle_piece');
     randArrNumber = randArr(number);
-    pieceOfPuzzle.forEach((arr, i) => {
-        arr.style.order = randArrNumber[i];
+    pieceOfPuzzle.forEach((element, i) => {
+        element.style.order = randArrNumber[i];
     });
 }
 
 // function to move puzzle pieces
+// функция для движения блоков
 function move(e) {
-    // create a condition on click on the tag span
+    // create a condition on click 
+    // создаем условие по клику при содержании класса direction
     if (e.target.classList.contains('direction') ) {
+
         let item = e.target.classList[2] - 1,
             position = e.target.classList[1],   
             orderPositon = Number(pieceOfPuzzle[item].style.order);
         // if the element has an order and it is less than complexity
+        // если у элемент есть order и он меньше чем сложность то двигаем элемент
         if (pieceOfPuzzle[item].style.order != 0 && pieceOfPuzzle[item].style.order <= complexity ){
-                complexity >= 16 ? step = 8 : step = 4;
+                //устанавливаем шаг для сдвига кусочка вверх или вниз
+                complexity === 4 ? step = 4 : step = 8;
                 // looking for span by position
                 // ищем спан по позиции
                 switch (position) {
@@ -215,17 +231,19 @@ function move(e) {
                 pieceOfPuzzle[item].style.order > complexity ? pieceOfPuzzle[item].style.order = complexity : pieceOfPuzzle[item].style.order = pieceOfPuzzle[item].style.order;
                
                 // swapping blocks
-                pieceOfPuzzle.forEach((key) => {
-                    if (key.style.order === pieceOfPuzzle[item].style.order && key !== pieceOfPuzzle[item]){
-                        key.style.order = orderPositon;  
+                // меняем местами два блока
+                pieceOfPuzzle.forEach((element) => {
+                    if (element.style.order === pieceOfPuzzle[item].style.order && element !== pieceOfPuzzle[item]){
+                        element.style.order = orderPositon;  
                     }
                     // check the order of the blocks if we collected them in order we won
-                    compareString += key.style.order;
-                    console.log(compareString);
-                    if (stringToCompare === compareString)
+                    // проверка выиграл ли ты
+                    compareString += element.style.order;
+                    if (stringToCompare === compareString) {
                         setTimeout(() => {
                             alert('You Win!!!');
                         },1500);
+                    }
                     compareString.length === stringToCompare.length ? compareString = '' : compareString = compareString;  
                 });    
         } 
