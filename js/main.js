@@ -59,7 +59,7 @@ function removePiece() {
 
 // функция для старта таймера
 function timer() {
-    if (timerValue.textContent >= 1 && timerValue.classList.contains('starting')) {
+    if (timerValue.textContent >= 1 && timerValue.classList.contains('starting') && !timerValue.classList.contains('hide')) {
         setTimeout(() => {
             timerValue.textContent = timerValue.textContent - 1;
             timerValue.textContent == 0 ? shufle(complexity) : timer();
@@ -91,6 +91,7 @@ start.addEventListener('click',() => {
 restart.addEventListener('click',() => {
     puzzle_piece !== 'undefined' ? removePiece() : '';
     tooltipImage.classList.contains('hide') ? '' : hideAll(tooltipImage);
+    timerValue.classList.toggle('starting');
     hideAll(difficulty, restart, tooltip, timerValue, title);
 });
 
