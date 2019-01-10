@@ -95,7 +95,7 @@
 }
 .timer {
     position: relative;
-    width: 60px;
+    max-width: 60px;
     height: auto;
     text-align: center;
     background: #000;
@@ -103,9 +103,23 @@
     font-size: 25px;
     margin: auto;
     left: 185px;
+    bottom: 88px;
+    cursor: default;
+}
+.move {
+    position: relative;
+    max-width: 60px;
+    height: auto;
+    text-align: center;
+    background: rgb(0,215,0);
+    color: #fff;
+    font-size: 25px;
+    margin: auto;
+    right: 185px;
     bottom: 60px;
     cursor: default;
 }
+
 .tooltipImage {
     width: 800px;
     height: 400px;

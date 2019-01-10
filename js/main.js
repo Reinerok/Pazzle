@@ -9,6 +9,7 @@ let start = document.querySelector('.start'),
     puzzle_piece,
     difficulty = document.querySelector('.difficulty'),
     timerValue = document.querySelector('.timer'),
+    moveBlock = document.querySelector ('.move'),
     complexity,
     pieceOfPuzzle,
     x,
@@ -86,15 +87,17 @@ addEventListener("click", (e) => shift(e));
 // обработчики для старта и рестарта
 start.addEventListener('click',() => {
     shufle(complexity);
-    hideAll(difficulty, restart, tooltip, timerValue, title, start);
+    hideAll(difficulty, restart, tooltip, timerValue, title, start,moveBlock);
 });
 
 restart.addEventListener('click',() => {
     move = 0;
+    moveBlock.textContent = move;
     puzzle_piece !== 'undefined' ? removePiece() : '';
     tooltipImage.classList.contains('hide') ? '' : hideAll(tooltipImage);
     timerValue.classList.toggle('starting');
-    hideAll(difficulty, restart, tooltip, timerValue, title);
+    hideAll(difficulty, restart, tooltip, timerValue, title,moveBlock);
+    
 });
 
 // Function for generating a random number with given boundaries
@@ -204,6 +207,7 @@ function shift(e) {
     if (e.target.classList.contains('direction') ) {
         // TODO сделать вывод количество шагов.
         move += 1;
+        moveBlock.textContent = move;
         let item = e.target.classList[2] - 1,
             position = e.target.classList[1],   
             orderPositon = Number(pieceOfPuzzle[item].style.order);
@@ -241,7 +245,7 @@ function shift(e) {
                     // check the order of the blocks if we collected them in order we won
                     // проверка выиграл ли ты
                     compareString += element.style.order;
-                    if (stringToCompare === compareString) {
+                    if (stringToCompare === compareString && move >= complexity) {
                         setTimeout(() => {
                             alert('You Win!!!');
                         },1500);
