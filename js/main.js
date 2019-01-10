@@ -19,7 +19,8 @@ let start = document.querySelector('.start'),
     randNumber,
     step,
     randArrNumber,
-    puzzleImg;
+    puzzleImg,
+    move = 0;
 
 // Функция для скрытия блоков
 function hideAll(...rest) {
@@ -80,7 +81,7 @@ tooltip.addEventListener('click',() => {
 
 // listener on click with event
 // добавляем обработчик события на клик для движения блоков
-addEventListener("click", (e) => move(e));
+addEventListener("click", (e) => shift(e));
 
 // обработчики для старта и рестарта
 start.addEventListener('click',() => {
@@ -89,6 +90,7 @@ start.addEventListener('click',() => {
 });
 
 restart.addEventListener('click',() => {
+    move = 0;
     puzzle_piece !== 'undefined' ? removePiece() : '';
     tooltipImage.classList.contains('hide') ? '' : hideAll(tooltipImage);
     timerValue.classList.toggle('starting');
@@ -151,9 +153,7 @@ function createBlocks(numbers) {
             x = 0;
             y = 100;
         }
-        
-        console.log(puzzleImg);
-        
+         
         mainBlock.innerHTML += `<div class="puzzle_piece ${i}" id="block${i}" style="order: 0; background: url(../img/${puzzleImg}.png) ${x}px ${y}px; width: ${widthBlock}px; height: ${heightBlock}px;" ">
                                     <span class="direction up ${i}" id="up${i}">Up</span>
                                     <span class="direction right ${i}" id="right${i}">Right</span>
@@ -196,13 +196,14 @@ function shufle(number) {
     });
 }
 
-// function to move puzzle pieces
+// function to shift puzzle pieces
 // функция для движения блоков
-function move(e) {
+function shift(e) {
     // create a condition on click 
     // создаем условие по клику при содержании класса direction
     if (e.target.classList.contains('direction') ) {
-
+        // TODO сделать вывод количество шагов.
+        move += 1;
         let item = e.target.classList[2] - 1,
             position = e.target.classList[1],   
             orderPositon = Number(pieceOfPuzzle[item].style.order);
