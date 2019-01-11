@@ -64,6 +64,7 @@ function timer() {
     if (timerValue.textContent >= 1 && timerValue.classList.contains('starting') && !timerValue.classList.contains('hide')) {
         setTimeout(() => {
             timerValue.textContent = timerValue.textContent - 1;
+            // TODO переделать рекурсию под while
             timerValue.textContent == 0 ? shufle(complexity) : timer();
         },1000);    
     } else {
@@ -183,6 +184,7 @@ function randArr(number) {
                     return randArrNumber;
                 }
         }
+        // TODO переделать рекурсию под while
         fillArr();
     }
     fillArr();
