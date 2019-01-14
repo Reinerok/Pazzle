@@ -64,33 +64,12 @@ function timer() {
     if (timerValue.textContent >= 1 && timerValue.classList.contains('starting') && !timerValue.classList.contains('hide')) {
         setTimeout(() => {
             timerValue.textContent = timerValue.textContent - 1;
-            // TODO переделать рекурсию под while
             timerValue.textContent == 0 ? shufle(complexity) : timer();
         },1000);    
     } else {
         timerValue.textContent = 60;
     }       
-  }
-
-
-
-// функция для старта таймера переделка
-/*function timer() {
-    console.log(123);
-    
-    while(timerValue.textContent >= 1 && timerValue.classList.contains('starting') && !timerValue.classList.contains('hide')) {
-        console.log(timerValue.textContent);
-        setTimeout(() => {
-            console.log('Test');
-            timerValue.textContent = timerValue.textContent - 1;
-            // TODO переделать рекурсию под while
-            timerValue.textContent === 0 ? shufle(complexity) : '';
-        },1000);    
-    } 
-  
-    //timerValue.textContent = 60;
-  
-}*/
+} 
 
 timerValue.addEventListener('click',() => {
     timerValue.classList.toggle('starting');
@@ -131,7 +110,9 @@ function randomInteger(min, max) {
 // Функци для создания блока с пазлом.
 function createBlocks(numbers) {
 
+    // собираем строку для сравнения
     stringToCompare = '';
+    // делаем рандомную картинку при каждом начале игры
     puzzleImg = randomInteger(1, 5);
     tooltipImage.style.backgroundImage = `url("../img/${puzzleImg}.png")`;
 
@@ -139,6 +120,7 @@ function createBlocks(numbers) {
 
         stringToCompare +=i;
 
+        // устанавливаем ширину и высоту блоков
         if (complexity === 8) {
             widthBlock = 200;
             heightBlock = 200;
@@ -177,7 +159,7 @@ function createBlocks(numbers) {
             x = 0;
             y = 100;
         }
-         
+        // создаем блок с пазлом используем полученные размеры и устанавливаем id 
         mainBlock.innerHTML += `<div class="puzzle_piece ${i}" id="block${i}" style="order: 0; background: url(../img/${puzzleImg}.png) ${x}px ${y}px; width: ${widthBlock}px; height: ${heightBlock}px;" ">
                                     <span class="direction up ${i}" id="up${i}">Up</span>
                                     <span class="direction right ${i}" id="right${i}">Right</span>
@@ -189,55 +171,31 @@ function createBlocks(numbers) {
 }
 
 // Function for randomly arranging numbers in an array, without repeating/
-// Функция для рандомного вставления чисел в массив без повторения
-function randArr(number) {
-    // create an array with random numbers and the first element
-    // создаем массив с рандомным числом
-    randArrNumber = [];
-    randArrNumber.push(randomInteger(1,number));
-    // Function to check the uniqueness of elements and filling unique elements
-    function fillArr() {
-        randNumber = randomInteger(1,number);
-        // check if there is the same element in the array; if not, add it, otherwise, call the function again.
-        if (randArrNumber.indexOf(randNumber) === -1) {
-            randArrNumber.push(randNumber);
-                // if we collected 8 unique elements, we return an array
-                if (randArrNumber.length === number) {
-                    return randArrNumber;
-                }
-        }
-        // TODO переделать рекурсию под while
-        fillArr();
-    }
-    fillArr();
-    return randArrNumber;
-}
-// Function for randomly arranging numbers in an array, without repeating/
-// Функция для рандомного вставления чисел в массив без повторениян Переделка 
-/* 
+// Функция для рандомного вставления чисел в массив без повторениян 
 function randArr(number) {
   // create an array with random numbers and the first element
   // создаем массив с рандомным числом
   randArrNumber = [];
   randArrNumber.push(randomInteger(1,number));
-  // Function to check the uniqueness of elements and filling unique elements
-  
-      // check if there is the same element in the array; if not, add it, otherwise, call the function again.
-
+  // while to check the uniqueness of elements and filling unique elements
+  // создаем цикл чтобы заполнить массив неповторяющимися числами
       while (randArrNumber.length !== number) {
+        // создаем случайное число
         randNumber = randomInteger(1,number);
+        // check if there is the same element in the array; if not, add it, otherwise, call the function again.
+        // проверяем есть ли данное число в имеющемся массиве если его нету то добавляем массив
         if (randArrNumber.indexOf(randNumber) === -1) {
           randArrNumber.push(randNumber);
         }
       }
   return randArrNumber;
 }
-*/
-
 
 // use an array with unique elements to mix puzzle pieces
+// используем массив с уникальными элементами  чтобы перемешать кусочки
 function shufle(number) {
     // Putting all the puzzle pieces NodeList objects
+    // вставляем все кусочки пазла в NodeList objects
     pieceOfPuzzle = document.querySelectorAll('.puzzle_piece');
     randArrNumber = randArr(number);
     pieceOfPuzzle.forEach((element, i) => {
@@ -250,8 +208,7 @@ function shufle(number) {
 function shift(e) {
     // create a condition on click 
     // создаем условие по клику при содержании класса direction
-    if (e.target.classList.contains('direction') ) {
-        // TODO сделать вывод количество шагов.
+    if (e.target.classList.contains('direction')) {
         move += 1;
         moveBlock.textContent = move;
         let item = e.target.classList[2] - 1,
@@ -259,46 +216,47 @@ function shift(e) {
             orderPositon = Number(pieceOfPuzzle[item].style.order);
         // if the element has an order and it is less than complexity
         // если у элемент есть order и он меньше чем сложность то двигаем элемент
-        if (pieceOfPuzzle[item].style.order != 0 && pieceOfPuzzle[item].style.order <= complexity ){
-                //устанавливаем шаг для сдвига кусочка вверх или вниз
-                complexity === 4 ? step = 4 : step = 8;
-                // looking for span by position
-                // ищем спан по позиции
-                // TODO изменить на if и посмотреть.
-                switch (position) {
-                    case position = 'left':
-                        pieceOfPuzzle[item].style.order = orderPositon - 1;
-                    break;
-                    case position = 'right':
-                        pieceOfPuzzle[item].style.order = orderPositon + 1;
-                    break;
-                    case position = 'up':
-                        pieceOfPuzzle[item].style.order = orderPositon - step;
-                    break;
-                    case position = 'down':
-                        pieceOfPuzzle[item].style.order = orderPositon + step;
-                    break;
-                }
+        if (pieceOfPuzzle[item].style.order != 0 && pieceOfPuzzle[item].style.order <= complexity) {
+            // устанавливаем шаг для сдвига кусочка вверх или вниз
+            complexity === 4 ? step = 4 : step = 8;
+            // looking for span by position
+            // ищем спан по позиции
+            // TODO расмотреть возможно замены switch на if 
+            switch (position) {
+                case position = 'left':
+                    pieceOfPuzzle[item].style.order = orderPositon - 1;
+                break;
+                case position = 'right':
+                    pieceOfPuzzle[item].style.order = orderPositon + 1;
+                break;
+                case position = 'up':
+                    pieceOfPuzzle[item].style.order = orderPositon - step;
+                break;
+                case position = 'down':
+                    pieceOfPuzzle[item].style.order = orderPositon + step;
+                break;
+            }
 
-                pieceOfPuzzle[item].style.order < 1 ? pieceOfPuzzle[item].style.order = 1 : pieceOfPuzzle[item].style.order = pieceOfPuzzle[item].style.order;
-                pieceOfPuzzle[item].style.order > complexity ? pieceOfPuzzle[item].style.order = complexity : pieceOfPuzzle[item].style.order = pieceOfPuzzle[item].style.order;
-               
-                // swapping blocks
-                // меняем местами два блока
-                pieceOfPuzzle.forEach((element) => {
-                    if (element.style.order === pieceOfPuzzle[item].style.order && element !== pieceOfPuzzle[item]){
-                        element.style.order = orderPositon;  
-                    }
-                    // check the order of the blocks if we collected them in order we won
-                    // проверка выиграл ли ты
-                    compareString += element.style.order;
-                    if (stringToCompare === compareString && move >= complexity) {
-                        setTimeout(() => {
-                            alert('You Win!!!');
-                        },1500);
-                    }
-                    compareString.length === stringToCompare.length ? compareString = '' : compareString = compareString;  
-                });    
+            pieceOfPuzzle[item].style.order < 1 ? pieceOfPuzzle[item].style.order = 1 : pieceOfPuzzle[item].style.order = pieceOfPuzzle[item].style.order;
+            pieceOfPuzzle[item].style.order > complexity ? pieceOfPuzzle[item].style.order = complexity : pieceOfPuzzle[item].style.order = pieceOfPuzzle[item].style.order;
+            
+            // swapping blocks
+            // меняем местами два блока
+            pieceOfPuzzle.forEach((element) => {
+                if (element.style.order === pieceOfPuzzle[item].style.order && element !== pieceOfPuzzle[item]) {
+                    element.style.order = orderPositon;  
+                }
+                compareString += element.style.order;
+                // check the order of the blocks if we collected them in order we won
+                // проверка на совпадению строки и количество шагов
+                // TODO добавить еще проверку и переделать проверку на шаги
+                if (stringToCompare === compareString && move >= complexity) {
+                    setTimeout(() => {
+                        alert('You Win!!!');
+                    },1500);
+                }
+                compareString.length === stringToCompare.length ? compareString = '' : compareString = compareString;  
+            });    
         } 
     }
 }
