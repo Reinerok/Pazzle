@@ -264,6 +264,7 @@ function shift(e) {
                 complexity === 4 ? step = 4 : step = 8;
                 // looking for span by position
                 // ищем спан по позиции
+                // TODO изменить на if и посмотреть.
                 switch (position) {
                     case position = 'left':
                         pieceOfPuzzle[item].style.order = orderPositon - 1;
