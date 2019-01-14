@@ -70,7 +70,27 @@ function timer() {
     } else {
         timerValue.textContent = 60;
     }       
-}
+  }
+
+
+
+// функция для старта таймера переделка
+/*function timer() {
+    console.log(123);
+    
+    while(timerValue.textContent >= 1 && timerValue.classList.contains('starting') && !timerValue.classList.contains('hide')) {
+        console.log(timerValue.textContent);
+        setTimeout(() => {
+            console.log('Test');
+            timerValue.textContent = timerValue.textContent - 1;
+            // TODO переделать рекурсию под while
+            timerValue.textContent === 0 ? shufle(complexity) : '';
+        },1000);    
+    } 
+  
+    //timerValue.textContent = 60;
+  
+}*/
 
 timerValue.addEventListener('click',() => {
     timerValue.classList.toggle('starting');
@@ -168,9 +188,11 @@ function createBlocks(numbers) {
 
 }
 
-// Function for randomly arranging numbers in an array, without repeating
+// Function for randomly arranging numbers in an array, without repeating/
+// Функция для рандомного вставления чисел в массив без повторения
 function randArr(number) {
     // create an array with random numbers and the first element
+    // создаем массив с рандомным числом
     randArrNumber = [];
     randArrNumber.push(randomInteger(1,number));
     // Function to check the uniqueness of elements and filling unique elements
@@ -190,6 +212,28 @@ function randArr(number) {
     fillArr();
     return randArrNumber;
 }
+// Function for randomly arranging numbers in an array, without repeating/
+// Функция для рандомного вставления чисел в массив без повторениян Переделка 
+/* 
+function randArr(number) {
+  // create an array with random numbers and the first element
+  // создаем массив с рандомным числом
+  randArrNumber = [];
+  randArrNumber.push(randomInteger(1,number));
+  // Function to check the uniqueness of elements and filling unique elements
+  
+      // check if there is the same element in the array; if not, add it, otherwise, call the function again.
+
+      while (randArrNumber.length !== number) {
+        randNumber = randomInteger(1,number);
+        if (randArrNumber.indexOf(randNumber) === -1) {
+          randArrNumber.push(randNumber);
+        }
+      }
+  return randArrNumber;
+}
+*/
+
 
 // use an array with unique elements to mix puzzle pieces
 function shufle(number) {
