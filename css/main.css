@@ -129,11 +129,22 @@
 }
 
 .puzzle_piece span {
+    opacity: 0;
+    font-size: 0;
     position: absolute;
-    cursor: pointer;
+    width: 20px;
+    height: 20px;
     color: #ffffff;
 }
-
+.puzzle_piece span:hover {
+    opacity: 1;
+}
+.down:hover, .up:hover {
+    cursor: n-resize;
+}
+.right:hover, .left:hover {
+    cursor: e-resize;
+}
 .difficulty {
     left: calc(50% - 236px);
     position: relative;
@@ -185,11 +196,11 @@
 
 .up {
     top: 10%;
-    left: calc(50% - 10px);
+    left: calc(50% - 20px);
 }
 
 .right {
-    bottom: calc(50% - 9px);
+    bottom: calc(50% - 20px);
     right: 5%;
 }
 .down {
@@ -197,6 +208,6 @@
     left: calc(50% - 20px);
 }
 .left {
-    bottom: calc(50% - 9px);
+    bottom: calc(50% - 20px);
     left: 5%;
 }

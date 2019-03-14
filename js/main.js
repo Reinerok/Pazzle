@@ -51,6 +51,41 @@ difficulty.addEventListener('click', (e) => {
     // собираем блоки 
     createBlocks(complexity);
     start.classList.remove('hide');
+   
+
+    //drag and drop
+    //функция для взятия блока
+    const dragstart = function(event) {
+        event.dataTransfer.setData("id",event.target.id);
+        event.dataTransfer.setData("order",event.target.style.order);
+    };
+
+    //функция для перетаскивания блока
+    const dragover = function(event) {
+        event.preventDefault();
+    };
+
+    //функция для установки блока
+    const drop = function(event) {
+        event.preventDefault();
+        let id = event.dataTransfer.getData("id");
+        let order = event.dataTransfer.getData("order");
+        let prevElement = document.getElementById(id);
+        prevElement.style.order = event.target.style.order;
+        event.target.style.order = order;
+        move += 1;
+        moveBlock.textContent = move;
+    };
+
+    //собираем в псевдомассив элементы, потом преобразуем в массив и проходим по всем элементам и навешаем обработчики
+    const cells = document.getElementsByClassName('puzzle_piece');
+    Array.from(cells).forEach((element) => {
+        element.addEventListener('dragstart', dragstart);   
+        element.addEventListener('dragover', dragover);
+        element.addEventListener('drop', drop);
+       /* element.addEventListener('mouseenter', event => console.log(event));
+        element.addEventListener('mouseleave', event => console.log(event));*/
+    });
 });
 
 // функция удаления блоков
@@ -166,11 +201,11 @@ function createBlocks(numbers) {
             y = 100;
         }
         // создаем блок с пазлом используем полученные размеры и устанавливаем id 
-        mainBlock.innerHTML += `<div class="puzzle_piece ${i}" id="block${i}" style="order: 0; background: url(../img/${puzzleImg}.png) ${x}px ${y}px; width: ${widthBlock}px; height: ${heightBlock}px;" ">
-                                    <span class="direction up ${i}" id="up${i}">Up</span>
-                                    <span class="direction right ${i}" id="right${i}">Right</span>
-                                    <span class="direction down ${i}" id="down${i}">Down</span>
-                                    <span class="direction left ${i}" id="left${i}">Left</span>
+        mainBlock.innerHTML += `<div class="puzzle_piece ${i}" id="block${i}" draggable="true" style="order: 0; background: url(../img/${puzzleImg}.png) ${x}px ${y}px; width: ${widthBlock}px; height: ${heightBlock}px;" ">
+                                    <span class="direction up ${i} " id="up${i} ">Up</span>
+                                    <span class="direction right ${i} " id="right${i} ">Right</span>
+                                    <span class="direction down ${i} " id="down${i} ">Down</span>
+                                    <span class="direction left ${i} " id="left${i} ">Left</span>
                                 </div>`;
     }
 
@@ -266,3 +301,4 @@ function shift(e) {
         }
     }
 }
+   
